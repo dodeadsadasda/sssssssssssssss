@@ -16,7 +16,7 @@ Section:NewToggle("แตงโม", "แตงโม", function(state)
         end
         end
     else
-        _G.bringmob = false --ปิด=false  เปิด=true
+        _G.bringmob = true --ปิด=false  เปิด=true
         while _G.bringmob do wait()
         for i,v in pairs(game:GetService("Workspace").Farm.Watermelon:GetDescendants()) do
              if v.Name == "Sound" then
@@ -27,7 +27,6 @@ Section:NewToggle("แตงโม", "แตงโม", function(state)
         end
     end
 end)
-
 
 local Tab = Window:NewTab("โพ")
 local Section = Tab:NewSection("โพ")
@@ -89,28 +88,33 @@ Section:NewToggle("auto cooking", "cooking", function(state)
         end
 end)
 
-    else
-        local isOpen = false
+Section:NewToggle("auto sell Watermelonjuice", "auto sell Watermelonjuice", function(state)
+    if state then
+        _G.bringmob = true --ปิด=false  เปิด=true
+        while _G.bringmob do wait()
+        local args = {
+             [1] = "Watermelonjuice",
+             [2] = "1"
+         }
+         
+         game:GetService("ReplicatedStorage"):WaitForChild("WorldMarket_Remotes"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+         wait(.1)
+        end
+        end
+        end
 
-while true do
-    if isOpen then
-        local args = {
-            [1] = "Watermelonjuice",
-            [2] = "1"
-        }
-        
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("cookingEvent"):FireServer(unpack(args))
-        isOpen = false
     else
+
+        _G.bringmob = false --ปิด=false  เปิด=true
+        while _G.bringmob do wait()
         local args = {
-            [1] = "Watermelonjuice",
-            [2] = "1"
-        }
-        
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("cookingEvent"):FireServer(unpack(args))    
-        isOpen = true
+             [1] = "Watermelonjuice",
+             [2] = "1"
+         }
+         game:GetService("ReplicatedStorage"):WaitForChild("WorldMarket_Remotes"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+         wait(.1)
+        end
+        end
+        end
     end
-    wait(.1)
-end
-end
-end
+end)
