@@ -72,6 +72,7 @@ Section:NewToggle("auto cooking", "cooking", function(state)
         end
         end
         end
+
     else
 
         _G.bringmob = false --ปิด=false  เปิด=true
@@ -86,6 +87,7 @@ Section:NewToggle("auto cooking", "cooking", function(state)
         end
         end
         end
+    end
 end)
 
 Section:NewToggle("auto sell Watermelonjuice", "auto sell Watermelonjuice", function(state)
